@@ -1,0 +1,7 @@
+<%= render @translation %>
+
+<div class="flex flex-wrap items-center gap mbs-6" style="--row-gap: .5rem">
+  <%= link_to "Edit this translation", edit_translation_path(@translation), class: "btn" %>
+  <%= link_to "Back to translations", translations_path, class: "btn" %>
+  <%= button_to "Destroy this translation", @translation, method: :delete, class: "btn" %>
+</div>

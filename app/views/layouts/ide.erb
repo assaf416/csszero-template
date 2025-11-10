@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Csszerotemplate" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+
+    <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
+
+    <%= stylesheet_link_tag "css-zero/reset", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "css-zero/variables", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "css-zero/utilities", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="header-layout">
+    <div class="resizable-horizontal rounded-lg border" style="block-size: 450px;" data-controller="ide"  data-resizable-direction-value="horizontal">
+  <div class="flex items-center justify-center p-6" data-resizable-target="element" data-size="50">
+    <span class="font-semibold">One</span>
+  </div>
+  <div class="resizable-vertical" data-resizable-target="element" data-size="50">
+    <div contents data-controller="resizable" data-resizable-direction-value="vertical">
+      <div class="flex items-center justify-center p-6" data-resizable-target="element" data-size="25">
+        <span class="font-semibold">Two</span>
+      </div>
+      <div class="flex items-center justify-center p-6" data-resizable-target="element" data-size="75">
+        <span class="font-semibold">Three</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.resizable-horizontal {
+  display: flex;
+  flex-direction: row;
+}
+.resizable-vertical {
+  display: flex;
+  flex-direction: column;
+}
+.gutter {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.gutter-horizontal {
+  background-image: url("grip-vertical-zink-500.svg");
+  border-inline-width: var(--border);
+  cursor: col-resize;
+}
+.gutter-vertical {
+  background-image: url("grip-horizontal-zink-500.svg");
+  border-block-width: var(--border);
+  cursor: row-resize;
+}
+</style>
+  </body>
+</html>

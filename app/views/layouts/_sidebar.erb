@@ -1,0 +1,100 @@
+  <div class="hide@md" data-controller="dialog">
+    <button type="button" class="btn btn--icon" data-action="dialog#showModal">
+      <span class="icon icon--menu" style="--icon-size: 1.25rem" aria-hidden="true"></span>
+      <span class="sr-only">Open menu</span>
+    </button>
+    <dialog class="sheet sheet--left" style="--sheet-size: 288px;" data-dialog-target="content" data-action="click->dialog#closeOnClickOutside">
+      <div class="sheet__content p-2">
+        <div class="sidebar-menu">
+          <a class="btn sidebar-menu__button" href="#">
+            <div class="flex flex-item-no-shrink overflow-hidden rounded-lg bg-black text-reversed">
+              <span class="icon icon--gallery-vertical-end m-2"></span>
+            </div>
+            <div class="flex flex-col text-start leading-tight overflow-hidden">
+              <span class="overflow-ellipsis font-semibold">Dalore</span>
+            </div>
+            <span class="icon icon--chevrons-up-down mis-auto" aria-hidden="true"></span>
+          </a>  
+          <div class="sidebar-menu__content">
+            <div class="sidebar-menu__group">
+              <div class="sidebar-menu__group-label">Platform</div>
+              <div class="sidebar-menu__items">
+                <details open>
+                  <summary class="btn sidebar-menu__button">
+                    <span class="icon icon--square-terminal" aria-hidden="true"></span>
+                    <span class="overflow-ellipsis">Playground</span>
+                  </summary>
+                  <nav class="sidebar-menu__sub">
+                    <a class="btn sidebar-menu__button" aria-current="page" href="#">History</a>
+                    <a class="btn sidebar-menu__button" href="#">Starred</a>
+                    <a class="btn sidebar-menu__button" href="#">Settings</a>
+                  </nav>
+                </details>
+                <details>
+                  <summary class="btn sidebar-menu__button">
+                    <span class="icon icon--bot" aria-hidden="true"></span>
+                    <span class="overflow-ellipsis">Models</span>
+                  </summary>
+                  <nav class="sidebar-menu__sub">
+                    <a class="btn sidebar-menu__button" href="#">Genesis</a>
+                    <a class="btn sidebar-menu__button" href="#">Explorer</a>
+                    <a class="btn sidebar-menu__button" href="#">Quantum</a>
+                  </nav>
+                </details>
+                <details>
+                  <summary class="btn sidebar-menu__button">
+                    <span class="icon icon--book-open" aria-hidden="true"></span>
+                    <span class="overflow-ellipsis">Documentation</span>
+                  </summary>
+                  <nav class="sidebar-menu__sub">
+                    <a class="btn sidebar-menu__button" href="#">Documentation</a>
+                    <a class="btn sidebar-menu__button" href="#">Get Started</a>
+                    <a class="btn sidebar-menu__button" href="#">Tutorials</a>
+                    <a class="btn sidebar-menu__button" href="#">Changelog</a>
+                  </nav>
+                </details>
+                <details>
+                  <summary class="btn sidebar-menu__button">
+                    <span class="icon icon--settings-2" aria-hidden="true"></span>
+                    <span class="overflow-ellipsis">Settings</span>
+                  </summary>
+                  <nav class="sidebar-menu__sub">
+                    <a class="btn sidebar-menu__button" href="#">General</a>
+                    <a class="btn sidebar-menu__button" href="#">Teams</a>
+                    <a class="btn sidebar-menu__button" href="#">Billing</a>
+                    <a class="btn sidebar-menu__button" href="#">Limits</a>
+                  </nav>
+                </details>
+              </div>
+            </div>
+            <div class="sidebar-menu__group">
+              <div class="sidebar-menu__group-label">Projects</div>
+              <nav class="sidebar-menu__items">
+                <a class="btn sidebar-menu__button" href="#">
+                  <span class="icon icon--frame" aria-hidden="true"></span>
+                  <span class="overflow-ellipsis">Design Engineering</span>
+                </a>        <a class="btn sidebar-menu__button" href="#">
+                  <span class="icon icon--chart-pie" aria-hidden="true"></span>
+                  <span class="overflow-ellipsis">Sales & Marketing</span>
+                </a>        <a class="btn sidebar-menu__button" href="#">
+                  <span class="icon icon--map" aria-hidden="true"></span>
+                  <span class="overflow-ellipsis">Travel</span>
+                </a>        <a class="btn sidebar-menu__button" aria-disabled="true">
+                  <span class="icon icon--ellipsis" aria-hidden="true"></span>
+                  <span class="overflow-ellipsis">More</span>
+                </a>      </nav>
+            </div>
+          </div>
+          <a class="btn sidebar-menu__button" href="#">
+            <div class="flex flex-item-no-shrink overflow-hidden rounded-lg">
+              <img alt="CN  " src="/assets/logo.png" width="32" height="32" />
+            </div>
+            <div class="flex flex-col text-start leading-tight overflow-hidden">
+              <span class="overflow-ellipsis max-i-full font-semibold">Lázaro Nixon</span>
+              <span class="overflow-ellipsis max-i-full text-xs">lazaronixon@hotmail.com</span>
+            </div>
+            <span class="icon icon--chevrons-up-down mis-auto" aria-hidden="true"></span>
+          </a></div>
+      </div>
+    </dialog>
+  </div>

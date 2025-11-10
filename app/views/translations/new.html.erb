@@ -1,0 +1,9 @@
+<% content_for :title, "New translation" %>
+
+<h1 class="font-bold text-4xl mbe-4">New translation</h1>
+
+<%= render "form", translation: @translation %>
+
+<div class="inline-flex flex-wrap items-center gap mbs-2" style="--row-gap: .5rem">
+  <%= link_to "Back to translations", translations_path, class: "btn" %>
+</div>

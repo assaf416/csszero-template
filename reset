@@ -1,0 +1,9 @@
+#!/bin/sh
+#bin/rails db:environment:set RAILS_ENV=development
+rm -f db/schema.rb
+rails db:drop
+rails db:migrate
+rails  db:seed
+rails s
+
+
