@@ -79,7 +79,7 @@ gem "rufus-scheduler"
 gem "httparty"
 gem "lograge"
 gem "apexcharts"
-gem "activeadmin", "= 4.0.0beta13"
+gem "activeadmin", "4.0.0.beta18"
 
 gem "dartsass-rails", "~> 0.5.1"
 
