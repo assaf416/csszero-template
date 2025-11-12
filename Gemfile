@@ -80,3 +80,9 @@ gem "httparty"
 gem "lograge"
 gem "apexcharts"
 gem "activeadmin", "= 4.0.0beta13"
+
+gem "dartsass-rails", "~> 0.5.1"
+
+gem "pagy", "~> 43.0"
+
+gem "ransack", "~> 4.4"

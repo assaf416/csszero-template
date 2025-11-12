@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :users
   get "web/home"
   get "web/ide"
-  get "web/uesers"
+  get "web/users"
   get "web/user"
   get "web/dashboard"
   get "web/mobile"

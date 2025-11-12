@@ -1,340 +1,70 @@
-<div class="container flex flex-col p-4">
-  <div class="flex flex-col mbe-8">
-    <h2 class="text-2xl font-bold">Welcome back!</h2>
-    <p class="text-subtle">Here's a list of your tasks for this month!</p>
-  </div>
 
-  <form class="flex items-center justify-between gap mbe-4" id="task_search" action="/tasks" accept-charset="UTF-8" method="get">
-    <div class="flex items-center flex-item-grow gap">
-      <input placeholder="Filter tasks..." autocomplete="off" class="input" style="max-inline-size: 250px" type="search" name="q[title_i_cont]" id="q_title_i_cont">
-      <select class="input" style="--input-inline-size: 85px" name="q[status_eq]" id="q_status_eq"><option value="">Status</option>
-<option value="backlog">backlog</option>
-<option value="todo">todo</option>
-<option value="in_progress">in_progress</option>
-<option value="done">done</option>
-<option value="canceled">canceled</option></select>
-      <select class="input" style="--input-inline-size: 85px" name="q[priority_eq]" id="q_priority_eq"><option value="">Priority</option>
-<option value="low">low</option>
-<option value="medium">medium</option>
-<option value="high">high</option></select>
+<table class="table border rounded-lg">
+  <thead>
+    <tr>
+        <th>
+            <a class="sort_link  flex items-center" href="/tasks?q%5Bs%5D=title+asc">Name&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg></a></th>
+      <th>ID</th>
       
+      <th>Token</th>
+      <th class="text-end">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for p in @users do %>
+    <tr>
+      <td class="whitespace-nowrap"><%= p.id %></td>
+      <td class="whitespace-nowrap"><%= p.token %></td>
+      <td class="text-end">$250.00</td>
+      <td class="text-end">
+      <div contents data-controller="popover" data-popover-placement-value="bottom-start">
+  <button type="button" class="btn" data-popover-target="trigger" popovertarget="popover" aria-haspopup="true">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+  </button>
+  <div popover id="popover" class="popover" style="--popover-size: 14rem;" data-popover-target="content" role="menu" aria-label="Menu">
+    <div class="menu" data-controller="menu" data-action="keydown->menu#navigate">
+      <div class="menu__header"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+      <hr class="menu__separator" role="separator"/>
+      <div class="menu__group" role="group">
+        <a class="btn menu__item" data-menu-target="item" role="menuitem" href="">
+          <span class="icon icon--calendar" aria-hidden="true"></span>
+          <span>Calendar</span>
+        </a>  
+        <form contents="true" role="menuitem" class="button_to" method="post" action=""><button class="btn menu__item" data-menu-target="item" type="submit">
+            <span class="icon icon--smile" aria-hidden="true"></span>
+            <span>Seach Emoji</span>
+          </button><input type="hidden" name="authenticity_token" value="qigOmx84pCzzRrcTuqicBwUWCv_3Wjrw_1GH23CGMtHyBZ5eYsZFNg3G-lZevOiUtJff5tfbRyJeWVexTZy19A" autocomplete="off" /></form>
+  <a class="btn menu__item" role="menuitem" tabindex="-1" aria-disabled="true">
+          <span class="icon icon--calculator" aria-hidden="true"></span>
+          <span>Calculator</span>
+        </a></div>
+      <hr class="menu__separator" role="separator"/>
+      <div class="menu__group" role="group">
+        <a class="btn menu__item" data-menu-target="item" role="menuitem" href="">
+          <span class="icon icon--user" aria-hidden="true"></span>
+          <span>Profile</span>
+          <span class="menu__item-key">⌘P</span>
+        </a>  <a class="btn menu__item" data-menu-target="item" role="menuitem" href="">
+          <span class="icon icon--credit-card" aria-hidden="true"></span>
+          <span>Billing</span>
+          <span class="menu__item-key">⌘B</span>
+        </a>  <a class="btn menu__item" data-menu-target="item" role="menuitem" href="">
+          <span class="icon icon--settings" aria-hidden="true"></span>
+          <span>Settings</span>
+          <span class="menu__item-key">⌘P</span>
+        </a></div>
     </div>
-
-    <input type="submit" name="commit" value="Search" class="btn show@sm" data-disable-with="Search">
-</form>
-  <turbo-frame id="tasks_table">
-    <div class="relative i-full overflow-x-auto border rounded-lg mbe-4">
-      <table class="table" data-controller="check-all">
-        <thead>
-          <tr>
-            <th><input type="checkbox" name="check_all" id="check_all" value="1" class="input" data-action="check-all#check" data-check-all-target="dependee"></th>
-            <th>Task</th>
-            <th><a class="sort_link  flex items-center" href="/tasks?q%5Bs%5D=title+asc">Title&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg></a></th>
-            <th><a class="sort_link  flex items-center" href="/tasks?q%5Bs%5D=status+asc">Status&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg></a></th>
-            <th><a class="sort_link  flex items-center" href="/tasks?q%5Bs%5D=priority+asc">Priority&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg></a></th>
-            <th style="min-inline-size: 3rem"></th>
-          </tr>
-        </thead>
-        <tbody>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="35178780" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">35178780</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">documentation</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">Try to hack the HEX alarm, maybe it will connect the optical pixel!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--timer" aria-hidden="true"></span>
-                    <span>In Progress</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-right" aria-hidden="true"></span>
-                    <span>Medium</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="44061884" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">44061884</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">documentation</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">I'll hack the haptic SSL program, that should bus the UDP transmitter!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle-off" aria-hidden="true"></span>
-                    <span>Canceled</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-down" aria-hidden="true"></span>
-                    <span>Low</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="65377013" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">65377013</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">feature</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">Use the cross-platform XML application, then you can quantify the solid state feed!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle" aria-hidden="true"></span>
-                    <span>Todo</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-up" aria-hidden="true"></span>
-                    <span>High</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="84220193" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">84220193</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">bug</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">Programming the capacitor won't do anything, we need to bypass the neural IB hard drive!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle-question-mark" aria-hidden="true"></span>
-                    <span>Backlog</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-up" aria-hidden="true"></span>
-                    <span>High</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="95081918" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">95081918</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">documentation</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">Synthesizing the system won't do anything, we need to navigate the multi-byte HDD firewall!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle" aria-hidden="true"></span>
-                    <span>Todo</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-right" aria-hidden="true"></span>
-                    <span>Medium</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="107888080" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">107888080</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">feature</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">If we back up the firewall, we can get to the RAM alarm through the primary UTF8 pixel!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle" aria-hidden="true"></span>
-                    <span>Todo</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-down" aria-hidden="true"></span>
-                    <span>Low</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="108557743" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">108557743</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">bug</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">I'll bypass the online TCP application, that should panel the AGP system!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle-question-mark" aria-hidden="true"></span>
-                    <span>Backlog</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-up" aria-hidden="true"></span>
-                    <span>High</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="124254117" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">124254117</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">documentation</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">I'll compress the virtual JSON panel, that should application the UTF8 bus!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle-off" aria-hidden="true"></span>
-                    <span>Canceled</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-up" aria-hidden="true"></span>
-                    <span>High</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="167947233" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">167947233</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">documentation</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">The CSS feed is down, index the bluetooth transmitter so we can compress the CLI protocol!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--circle" aria-hidden="true"></span>
-                    <span>Todo</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-up" aria-hidden="true"></span>
-                    <span>High</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="selected_ids[]" id="selected_ids_" value="183243314" class="input" data-action="check-all#check" data-check-all-target="dependant"></td>
-                <td class="whitespace-nowrap">183243314</td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="badge">bug</span>
-                    <span class="overflow-ellipsis" style="inline-size: 450px">If we quantify the circuit, we can get to the CLI feed through the mobile SMS hard drive!</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--timer" aria-hidden="true"></span>
-                    <span>In Progress</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <div class="flex items-center gap">
-                    <span class="icon icon--arrow-down" aria-hidden="true"></span>
-                    <span>Low</span>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap">
-                  <button name="button" type="button" class="btn btn--plain p-1">
-                    <span class="icon icon--ellipsis" aria-hidden="true"></span>
-                    <span class="sr-only">Open menu</span>
-</button>                </td>
-              </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="flex items-center">
-      <div class="text-sm text-subtle show@md">Total of 100 record(s).</div>
-      <div class="flex items-center mis-auto justify-end" style="column-gap: 1rem">
-        <form class="flex items-center gap show@md" data-controller="form" data-action="change-&gt;form#submit" action="/tasks?page=1&amp;limit=10" accept-charset="UTF-8" method="get">
-          <label class="text-sm font-medium" for="limit">Rows per page</label>
-          <select class="input" style="--input-inline-size: 70px" name="limit" id="limit"><option selected="selected" value="10">10</option>
-<option value="20">20</option>
-<option value="30">30</option>
-<option value="40">40</option>
-<option value="50">50</option></select>
-</form>        <div class="text-sm font-medium">Page 1 of 10</div>
-        <nav class="flex items-center flex-item-no-shrink gap" style="--btn-padding: .5rem;" aria-label="Pagination">
-          <a class="btn" aria-disabled="true" href="/tasks?page=1&amp;limit=10">
-            <span class="icon icon--chevrons-left" aria-hidden="true"></span>
-            <span class="sr-only">Go to first page</span>
-</a>          <a class="btn" aria-disabled="true" href="/tasks?page=1&amp;limit=10">
-            <span class="icon icon--chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Go to previous page</span>
-</a>          <a class="btn" href="/tasks?page=2&amp;limit=10">
-            <span class="icon icon--chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Go to next page</span>
-</a>          <a class="btn" href="/tasks?page=10&amp;limit=10">
-            <span class="icon icon--chevrons-right" aria-hidden="true"></span>
-            <span class="sr-only">Go to last page</span>
-</a>        </nav>
-      </div>
-    </div>
-</turbo-frame></div>
+  </div>
+</div>
+      </td>
+    </tr>
+    <% end %>
+    
+  </tbody>
+  <tfoot>
+      <tr>
+        <td colspan="3">Total</td>
+        <td class="text-end">$2,500.00</td>
+      </tr>
+  </tfoot>
+</table>

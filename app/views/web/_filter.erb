@@ -1,0 +1,52 @@
+
+<form class="flex items-center justify-between gap mbe-4" id="task_search" action="/tasks" accept-charset="UTF-8" method="get">
+
+
+    <div class="flex items-center flex-item-grow gap">
+    <i class="fa-solid fa-square-check"></i>
+    <select class="input" style="--input-inline-size: 85px" name="q[sort]" id="q_sort_eq">
+        <option value="">  Sort</option>
+        <option value="">Name</option>
+        <option value="low">ID</option>
+        <option value="medium">Created</option>
+    </select>
+      <input placeholder="Search" autocomplete="off" class="input" style="max-inline-size: 250px" type="search" name="q[title_i_cont]" id="q_title_i_cont" />
+      <select class="input" style="--input-inline-size: 85px" name="q[status_eq]" id="q_status_eq"><option value="">Status</option>
+        <option value="backlog">backlog</option>
+        <option value="todo">todo</option>
+        <option value="in_progress">in_progress</option>
+        <option value="done">done</option>
+        <option value="canceled">canceled</option>
+    </select>
+      <select class="input" style="--input-inline-size: 85px" name="q[priority_eq]" id="q_priority_eq">
+        <option value="">Priority</option>
+        <option value="low">low</option>
+        <option value="medium">medium</option>
+        <option value="high">high</option>
+      </select>
+    </div>
+
+    <input type="submit" name="commit" value="Search" class="btn show@sm" data-disable-with="Search" />
+      <span class="separator-vertical" aria-hidden="true"></span>
+    <i class="fa-solid fa-arrow-up-short-wide"></i>
+     <select class="input" style="--input-inline-size: 85px" name="q[sort]" id="q_sort_eq">
+        <option value="">  Sort</option>
+        <option value="">Name</option>
+        <option value="low">ID</option>
+        <option value="medium">Created</option>
+    </select>
+      <span class="separator-vertical" aria-hidden="true"></span>
+    <div class="group" role="group" aria-label="Basic example">
+
+<%= button_tag type: "button", class: "btn btn--icon" do %>
+<i class="fa-solid fa-table-list"></i>
+<% end %>
+<%= button_tag type: "button", class: "btn btn--icon" do %>
+  <i class="fa-solid fa-rectangle-list"></i>
+<% end %>
+<%= button_tag type: "button", class: "btn btn--icon" do %>
+  <i class="fa-solid fa-border-all"></i>
+<% end %>
+
+</div>
+</form>

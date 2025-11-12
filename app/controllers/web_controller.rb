@@ -2,7 +2,8 @@ class WebController < ApplicationController
   def home
   end
 
-  def uesers
+  def users
+    @users = User.all
   end
 
   def user
